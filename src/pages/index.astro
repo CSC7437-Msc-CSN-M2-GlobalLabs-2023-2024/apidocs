@@ -1,0 +1,531 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import Comments from '../components/Comments.astro';
+---
+
+<Layout title="Welcome to Astro.">
+<main class="pt-8 pl-8 pr-8 text-white bg-slate-950 min-h-screen space-y-4">
+<h1 class="text-4xl">Documentation</h1>
+
+<Card api="/api/patient/create">
+<Comments comments={[
+	"Call this API will create a new patient in the database",
+	"It will check if the patient already exists in the database",
+	"If the patient exists, it will return a bad request code 400",
+	"If the patient does not exist, it will create a new patient and return a success code 200",
+	"There is a type check for the email, firstName, lastName, sex and age",
+	"Email should be a valid email (but not necessarily exists)"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/patient/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "johndoe@gmail.com",
+        "firstName": "jb",
+        "lastName": "Doe",
+        "sex": "M", //Possible values are M,F or O
+        "age": 91
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Patient created:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/patient/getById">
+<Comments comments={[
+	"Call this API will get a patient by their ID",
+	"It will check if the patient exists in the database",
+	"If the patient exists, it will return the patient data along with a success code 200",
+	"If the patient does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/patient/getById', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "johndoe@gmail.com",
+        "firstName": "jb",
+        "lastName": "Doe",
+        "age": 91
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Patient details:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/patient/delete">
+<Comments comments={[
+	"Call this API will delete a patient by their ID",
+	"It will check if the patient exists in the database",
+	"If the patient exists, it will delete the patient and return a success code 200",
+	"If the patient does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/patient/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "johndoe@gmail.com",
+        "firstName": "jb",
+        "lastName": "Doe",
+        "age": 91
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Patient deleted successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/patient/update">
+<Comments comments={[
+	"Call this API will update a patient's information",
+	"It will check if the patient exists in the database",
+	"If the patient exists, it will update the patient's information and return a success code 200",
+	"If the patient does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/patient/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "johndoe@gmail.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "sex": "M",
+        "age": 30
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Patient updated successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/process/create">
+<Comments comments={[
+	"Call this API will create a new process in the database",
+	"It will return a success code 200 upon successful creation",
+	"Will check if the patient and staff members exist in the database"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/process/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "name": "Process 1",
+        "patientId": {
+            "email": "johndoe@gmail.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "age": 30
+        },
+        "staffEmails": ["staff1@gmail.com", "staff2@gmail.com"],
+        "stageIds": [1, 2, 3]
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Process created:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/process/getById/{id}">
+<Comments comments={[
+	"Call this API will get a process by its ID",
+	"It will check if the process exists in the database",
+	"If the process exists, it will return the process data along with a success code 200",
+	"If the process does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/process/getById/1', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Process details:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/process/delete/{id}">
+<Comments comments={[
+	"Call this API will delete a process by its ID",
+	"It will check if the process exists in the database",
+	"If the process exists, it will delete the process and return a success code 200",
+	"If the process does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/process/delete/1', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Process deleted successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/process/update">
+<Comments comments={[
+	"Call this API will update a process's information",
+	"It will check if the process exists in the database",
+	"If the process exists, it will update the process's information and return a success code 200",
+	"If the process does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/process/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id": 1,
+        "name": "Updated Process 1",
+        "patientId": {
+            "email": "johndoe@gmail.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "age": 30
+        },
+        "staffEmails": ["staff1@gmail.com", "staff2@gmail.com", "staff3@gmail.com"],
+        "stageIds": [1, 2, 3, 4]
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Process updated successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/staff/create">
+<Comments comments={[
+	"Call this API will create a new staff member in the database",
+	"It will return a success code 200 upon successful creation",
+	"There is no specific validation logic mentioned in the documentation, but the API should adhere to the defined model"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/staff/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "staff@gmail.com",
+        "passwordHash": "password",
+        "firstName": "Staff",
+        "lastName": "Member",
+        "position": "Position",
+        "admin": false
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Staff member created:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/staff/getByEmail/{email}">
+<Comments comments={[
+	"Call this API will get a staff member by their email",
+	"It will check if the staff member exists in the database",
+	"If the staff member exists, it will return the staff member data along with a success code 200",
+	"If the staff member does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/staff/getByEmail/staff@gmail.com', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Staff member details:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/staff/delete/{email}">
+<Comments comments={[
+	"Call this API will delete a staff member by their email",
+	"It will check if the staff member exists in the database",
+	"If the staff member exists, it will delete the staff member and return a success code 200",
+	"If the staff member does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/staff/delete/staff@gmail.com', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Staff member deleted successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/staff/update">
+<Comments comments={[
+	"Call this API will update a staff member's information",
+	"It will check if the staff member exists in the database",
+	"If the staff member exists, it will update the staff member's information and return a success code 200",
+	"If the staff member does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/staff/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": "staff@gmail.com",
+        "passwordHash": "newPassword",
+        "firstName": "Updated Staff",
+        "lastName": "Member",
+        "position": "Updated Position",
+        "admin": true
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Staff member updated successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/stage/create">
+<Comments comments={[
+	"Call this API will create a new stage in the database",
+	"It will return a success code 200 upon successful creation",
+	"There is no specific validation logic mentioned in the documentation, but the API should adhere to the defined model"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/stage/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "name": "Stage 1",
+        "completed": false,
+        "staffEmail": "staff1@gmail.com"
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+
+
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Stage created:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/stage/getById/{id}">
+<Comments comments={[
+	"Call this API will get a stage by its ID",
+	"It will check if the stage exists in the database",
+	"If the stage exists, it will return the stage data along with a success code 200",
+	"If the stage does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/stage/getById/1', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Stage details:', data);
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/stage/delete/{id}">
+<Comments comments={[
+	"Call this API will delete a stage by its ID",
+	"It will check if the stage exists in the database",
+	"If the stage exists, it will delete the stage and return a success code 200",
+	"If the stage does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/stage/delete/1', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Stage deleted successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+<Card api="/api/stage/update">
+<Comments comments={[
+	"Call this API will update a stage's information",
+	"It will check if the stage exists in the database",
+	"If the stage exists, it will update the stage's information and return a success code 200",
+	"If the stage does not exist, it will return a not found code 404"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/stage/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "id": 1,
+        "name": "Updated Stage 1",
+        "completed": true,
+        "staffEmail": "staff2@gmail.com"
+      })
+    })
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	console.log('Stage updated successfully');
+	})
+	.catch(error => {
+	console.error('There was a problem with the fetch operation:', error);
+	});`}
+</CodeBlock>
+</Card>
+
+
+</main>
+</Layout>

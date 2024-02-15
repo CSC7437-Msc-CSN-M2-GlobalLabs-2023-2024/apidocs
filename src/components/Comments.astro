@@ -1,0 +1,14 @@
+---
+interface Props {
+	comments: string[];
+}
+
+const { comments } = Astro.props;
+---
+<div>
+<ol class="list-disc list-inside">
+    {comments.map((comment, index) => (
+        <li>{comment}</li>
+    ))}
+</ol>
+</div>
