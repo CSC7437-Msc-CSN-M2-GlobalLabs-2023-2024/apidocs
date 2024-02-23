@@ -143,7 +143,8 @@ import Comments from '../components/Comments.astro';
             email: 'newpatient@example.com',
             firstName: 'Jane',
             lastName: 'Doe',
-            age: 25
+            age: 25,
+            sex: 'F'
         }
     })
 })
@@ -190,7 +191,8 @@ import Comments from '../components/Comments.astro';
             email: 'updatedpatient@example.com',
             firstName: 'John',
             lastName: 'Doe',
-            age: 35
+            age: 35,
+            sex: 'M'
         }
     })
 })
@@ -364,7 +366,10 @@ import Comments from '../components/Comments.astro';
         },
         processId: 123,
         process: {
-            // provide updated process details here
+            name: 'Updated process name',
+            patientId: 1,
+            staffEmails: ['staff1@hospital.com', 'staff2@hospital.com],
+            stageIds: [1, 2, 3]
         }
     })
 })
