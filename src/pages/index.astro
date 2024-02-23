@@ -562,6 +562,38 @@ import Comments from '../components/Comments.astro';
 </CodeBlock>
 </Card>
 
+<Card api="/api/staff/login">
+<Comments comments={[
+    "Call this API to login a staff member",
+    "It will return a success message with status code 200 if the credentials are valid",
+    "If the credentials are invalid, it will return a 401 error"
+]}/>
+<CodeBlock>
+{`fetch('http://localhost:8080/api/staff/login', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+            email: 'admin@admin.com',
+            passwordHash: 'admin'
+    })
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Updated staff member:', data);
+})
+.catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+});`}
+</CodeBlock>
+</Card>
+
 <Card api="/api/stage/getAll">
 <Comments comments={[
     "Call this API to get all stages in the database",
