@@ -55,8 +55,8 @@ import Comments from '../components/Comments.astro';
     },
     body: JSON.stringify({
 		credential: {
-        email: 'admin@admin.com',
-        passwordHash: 'admin'
+            email: 'admin@admin.com',
+            passwordHash: 'admin'
 		},
 		patientId: {
             email: 'patient@example.com',
@@ -95,8 +95,8 @@ import Comments from '../components/Comments.astro';
     },
     body: JSON.stringify({
 		credential: {
-        email: 'admin@admin.com',
-        passwordHash: 'admin'
+            email: 'admin@admin.com',
+            passwordHash: 'admin'
 		},
 		patientId: {
             email: 'patient@example.com',
@@ -136,8 +136,8 @@ import Comments from '../components/Comments.astro';
     },
     body: JSON.stringify({
 		credential: {
-        email: 'admin@admin.com',
-        passwordHash: 'admin'
+            email: 'admin@admin.com',
+            passwordHash: 'admin'
 		},
 		patient: {
             email: 'patient1@hospital.com',
@@ -178,8 +178,8 @@ import Comments from '../components/Comments.astro';
     },
     body: JSON.stringify({
 		credential: {
-        email: 'admin@admin.com',
-        passwordHash: 'admin'
+            email: 'admin@admin.com',
+            passwordHash: 'admin'
 		},
 		patientId: {
             email: 'patient@example.com',
@@ -519,7 +519,7 @@ import Comments from '../components/Comments.astro';
             position: 'Doctor',
             admin: false,
             passwordHash: 'staff1passwordhash',
-            stageIds: []
+            processIds: []
         }
     })
 })
@@ -727,7 +727,8 @@ import Comments from '../components/Comments.astro';
         stage: {
             name: 'New stage name',
             completed: false,
-            staffEmails: 'staff1@hospital.com'
+            staffEmails: 'staff1@hospital.com',
+            processId: 1
         }
     })
 })
@@ -765,7 +766,10 @@ import Comments from '../components/Comments.astro';
             passwordHash: 'admin'
         },
         stage: {
-            // provide updated stage details here
+            name: 'Updated stage name',
+            completed: true,
+            staffEmail: 'staff1@hospital.com',
+            processId: 1
         }
     })
 })
