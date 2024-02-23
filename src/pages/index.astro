@@ -140,7 +140,7 @@ import Comments from '../components/Comments.astro';
         passwordHash: 'admin'
 		},
 		patient: {
-            email: 'newpatient@example.com',
+            email: 'patient1@hospital.com',
             firstName: 'Jane',
             lastName: 'Doe',
             age: 25,
@@ -327,7 +327,15 @@ import Comments from '../components/Comments.astro';
             passwordHash: 'admin'
         },
         process: {
-            // provide process details here
+            name: 'New process name',
+            patientId: {
+                email: 'patient1@hospital.com',
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            },
+            staffEmails: ['staff1@hospital.com', 'staff2@hospital.com'],
+            stageIds: [3]
         }
     })
 })
@@ -505,7 +513,13 @@ import Comments from '../components/Comments.astro';
             passwordHash: 'admin'
         },
         staff: {
-            // provide staff member details here
+            email: 'staff1@hospital.com',
+            firstName: 'John',
+            lastName: 'Doe',
+            position: 'Doctor',
+            admin: false,
+            passwordHash: 'staff1passwordhash',
+            stageIds: []
         }
     })
 })
@@ -583,7 +597,7 @@ import Comments from '../components/Comments.astro';
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
-    return response.text();
+    return response.json();
 })
 .then(data => {
     console.log('Updated staff member:', data);
@@ -711,7 +725,9 @@ import Comments from '../components/Comments.astro';
             passwordHash: 'admin'
         },
         stage: {
-            // provide stage details here
+            name: 'New stage name',
+            completed: false,
+            staffEmails: 'staff1@hospital.com'
         }
     })
 })
